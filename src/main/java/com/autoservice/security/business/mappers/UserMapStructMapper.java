@@ -22,7 +22,7 @@ public interface UserMapStructMapper {
     }
 
     @Named("role")
-    default Role enumRoleToStringRole(String role){
+    default Role StringRoleToEnumRole (String role){
         return Role.valueOf(role);
     }
 }
