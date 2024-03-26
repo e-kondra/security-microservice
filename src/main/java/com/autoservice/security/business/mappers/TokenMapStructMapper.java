@@ -1,7 +1,6 @@
 package com.autoservice.security.business.mappers;
 
 import com.autoservice.security.business.repository.TokenDAO;
-import com.autoservice.security.models.Role;
 import com.autoservice.security.models.Token;
 import com.autoservice.security.models.TokenType;
 import org.mapstruct.Mapper;

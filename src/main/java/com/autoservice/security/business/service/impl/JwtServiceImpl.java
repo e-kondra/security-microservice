@@ -1,7 +1,6 @@
 package com.autoservice.security.business.service.impl;
 
 import com.autoservice.security.business.service.JwtService;
-import com.autoservice.security.models.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
