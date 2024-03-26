@@ -1,6 +1,5 @@
 package com.autoservice.security.config;
 
-import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,12 +23,12 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableMethodSecurity
 public class SecurityConfiguration {
 
-
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
+    @Autowired
     private final LogoutHandler logoutHandler;
 
-    private static final String[] WHITE_LIST_URL = {"/api/v1/auth/**", "api/v1/api-docs"};
+    private static final String[] WHITE_LIST_URL = {"/api/v1/auth/**"};
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -39,17 +38,20 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)
                             .permitAll()
-//                                .requestMatchers("api/v1/auth/**")
                             .anyRequest()
                             .authenticated()
                 )
+
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout(logout ->
-                        logout.logoutUrl("api/v1/auth/logout")
+                        logout.logoutUrl("/api/v1/auth/logout")
                                 .addLogoutHandler(logoutHandler)
-                                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext()));
+                                .logoutSuccessHandler(
+                                        (request, response, authentication) ->
+                                        SecurityContextHolder.clearContext())
+                );
 
         return http.build();
     }

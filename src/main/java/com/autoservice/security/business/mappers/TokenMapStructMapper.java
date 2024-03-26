@@ -14,13 +14,11 @@ import org.mapstruct.Named;
 public interface TokenMapStructMapper {
 
     @Mappings({
-            @Mapping(target = "tokenType", source = "tokenType", qualifiedByName = "tokenType"),
-            @Mapping(target = "user", source = "user")
+            @Mapping(target = "tokenType", source = "tokenType", qualifiedByName = "tokenType")
     })
     TokenDAO tokenToTokenDAO (Token token);
     @Mappings({
-            @Mapping(target = "tokenType", source = "tokenType", qualifiedByName = "tokenType"),
-            @Mapping(target = "user", source = "user")
+            @Mapping(target = "tokenType", source = "tokenType", qualifiedByName = "tokenType")
     })
     Token tokenDAOToToken(TokenDAO tokenDAO);
 
